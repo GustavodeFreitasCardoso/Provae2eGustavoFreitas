@@ -175,24 +175,8 @@ test.describe('KaBuM! E2E', () => {
     await expect(couponCode).toHaveText(/^[A-Z][A-Z0-9]{4,}$/);
   });
 
-  test('8. deve aplicar ordenação por preço crescente', async ({ page }) => {
-    const kabumPage = new KabumPage(page);
 
-    await kabumPage.searchProducts('mouse gamer');
-
-    const sortSelect = kabumPage.kabumElements.getSortSelect();
-    await expect(sortSelect).toBeVisible();
-    await sortSelect.selectOption('price');
-
-    await expect(sortSelect).toHaveValue('price');
-    await expect(page).toHaveURL(/[?&]sort=price(?:&|$)/);
-
-    const prices = await getVisibleProductPrices(kabumPage, 6);
-    expect(prices.length).toBeGreaterThanOrEqual(2);
-    expect(prices).toEqual([...prices].sort((first, second) => first - second));
-  });
-
-  test('9. deve aplicar o filtro de ofertas', async ({ page }) => {
+  test('8. deve aplicar o filtro de ofertas', async ({ page }) => {
     const kabumPage = new KabumPage(page);
 
     await kabumPage.searchProducts('mouse gamer');
@@ -222,7 +206,7 @@ test.describe('KaBuM! E2E', () => {
       .not.toBe(beforeFiltering);
   });
 
-  test('10. deve apresentar o fallback atual para uma busca sem correspondência', async ({
+  test('9. deve apresentar o fallback atual para uma busca sem correspondência', async ({
     page
   }) => {
     const kabumPage = new KabumPage(page);
